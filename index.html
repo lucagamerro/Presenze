@@ -2,11 +2,167 @@
 <html>
 <head>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <title></title> 
+    <style>
+.centro {
+ width: 400px;
+ height: 200px;
+ padding: 10px;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.content-ctr {
+  width: 100%;
+  height: 100%;
+  background: white;
+  overflow: scroll;
+  position: relative;
+
+  &.active .header-content-ctr {
+    height: 0%;
+    transition: 0.3s height ease 0.45s;
+  }
+
+  &.active .header-content-ctr .title {
+    transition: 0.3s all ease;
+    opacity: 0;
+    @include transform(translateY(-20px));
+  }
+
+  &.active .header-content-ctr .par {
+    transition: 0.3s all ease 0.05s;
+    opacity: 0;
+    @include transform(translateY(-20px));
+  }
+
+  &.active .main-content-ctr {
+    height: 100%;
+    overflow: scroll;
+  }
+
+  &.active .main-content-ctr .title {
+    transition: 0.3s all ease 0.65s;
+    @include transform(translateY(0px));
+    opacity: 1;
+  }
+
+  &.active .main-content-ctr .par {
+    transition: 0.3s all ease 0.7s;
+    @include transform(translateY(0px));
+    opacity: 1;
+  }
+
+  .title {
+    font-family: Roboto;
+    margin-bottom: 30px;
+    font-size: 34px;
+    color: #e61875;
+    transition: 0.3s all ease;
+  }
+
+  .par {
+    font-family: Roboto;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 300;
+    color: #777;
+  }
+
+  .header-content-ctr {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    transition: 0.3s height ease;
+
+    .title {
+      transition: 0.3s all ease 0.15s;
+    }
+
+    .par {
+      transition: 0.3s all ease 0.3s;
+    }
+  }
+
+  .header-content {
+    @include position(absolute, x 0 110px 80px);
+  }
+
+  .main-content-ctr {
+    position: relative;
+    min-height: 0%;
+    transition: 0.3s height ease;
+    overflow: hidden;
+
+    .title,
+    .par {
+      opacity: 0;
+      @include transform(translateY(20px));
+    }
+  }
+
+  .main-content {
+    @include position(50% 0 x 0);
+    margin-left: 50px;
+    margin-top: -59px;
+  }
+}
+
+
+input[type="checkbox"]{
+  appearance:none;
+  width:40px;
+  height:16px;
+  border:1px solid #aaa;
+  border-radius:2px;
+  background:#ebebeb;
+  position:relative;
+  display:inline-block;
+  overflow:hidden;
+  vertical-align:middle;
+  transition: background 0.3s;
+  box-sizing:border-box;
+}
+input[type="checkbox"]:after{
+  content:'';
+  position:absolute;
+  top:-1px;
+  left:-1px;
+  width:14px;
+  height:14px;
+  background:white;
+  border:1px solid #aaa;
+  border-radius:2px;
+  transition: left 0.1s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+input[type="checkbox"]:checked{
+  background:#a6c7ff;
+  border-color:#8daee5;
+}
+input[type="checkbox"]:checked:after{
+  left:23px;
+  border-color:#8daee5;
+}
+
+input[type="checkbox"]:hover:not(:checked):not(:disabled):after,
+input[type="checkbox"]:focus:not(:checked):not(:disabled):after{
+  left:0px;
+}
+
+input[type="checkbox"]:hover:checked:not(:disabled):after,
+input[type="checkbox"]:focus:checked:not(:disabled):after{
+  left:22px;
+}
+
+input[type="checkbox"]:disabled{
+  opacity:0.5;
+}
+</style>
 </head>
 <body>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href=""> Presenze Uscite! </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="index.html"> Presenze Uscite! </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -14,35 +170,42 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="index.html"> <i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="send.php">Presenze</a>
+        <a class="nav-link" href="vedi.php"><i class="fas fa-table"></i> Presenze</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="informazioni.php"><i class="fas fa-info-circle"></i> Informazioni</a>
       </li>
     </ul>
+    <a class="btn btn-secondary my-2 my-sm-0" href="vedi.php"> Area Privata </a>
+    
   </div>
 </nav>
 <br>
-<br>
-      <form action="send.php">
-         <input type="text" name="nome" placeholder="Nome" />
-         <input type="text" name="presenza" placeholder="Inserire la propria presenza" /> <br><br>
-         <input type="submit" value="Invia" /> <br>
-      </form>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div class="centro">
+<div class="card bg-light mb-3" style="max-width: 20rem;">
+  <div class="card-header">Importante</div>
+  <div class="card-body">
+    <h4 class="card-title"> Utilizzo </h4>
+    <p class="card-text"> Per comunicare la propria presenza sara' sufficiente inserire i propri dati nel seguente form. Nella casella presenza scrivi semplicemente "Verro' all'uscita" e comunque se ci sarai o no all'uscita. Ricorda di utilizzare in modo maturo e responsabile questo strumento. </p>
+  </div>
+</div>
+</div>
 <br>
 <br>
 <br>
 <br>
+<h2> Inserisci la tua presenza: </h2> <br>
+<form action="send.php">
+    <input type="text" name="nome" placeholder="Nome e Cognome" /> <br>
+    <input type="text" name="sq" placeholder="Squadriglia" /> <br><br>
+    <input type="checkbox" name="si" value="si" />Verro' all'uscita  <br><br>
+    <input type="checkbox" name="no" value="no" />Non verro' all'uscita <br><br>
+    <input type="submit" value="Invia" /> <br>
+</form>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 <small class="form-text text-muted"> Creato da Luca Gamerro. Codice rilasciato sotto MIT License.</small>
 </html>
